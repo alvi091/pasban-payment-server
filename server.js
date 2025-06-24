@@ -22,6 +22,11 @@ const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
+// Health check route (add this before app.listen)
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
 
 // ✅ Routes
 app.post('/api/create-order', async (req, res) => {
