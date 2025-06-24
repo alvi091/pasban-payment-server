@@ -19,7 +19,7 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-// CORS configuration - Updated for production
+// CORS configuration - Updated for Railway deployment
 const allowedOrigins = [
   'https://pasban.in',
   'https://www.pasban.in',
@@ -57,9 +57,10 @@ const razorpay = new Razorpay({
 app.get('/health', (req, res) => {
   res.status(200).json({ 
     status: 'OK', 
-    message: 'Payment server is running',
+    message: 'Payment server is running on Railway',
     timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development'
+    environment: process.env.NODE_ENV || 'development',
+    platform: 'Railway'
   });
 });
 
@@ -67,7 +68,7 @@ app.get('/health', (req, res) => {
 app.get('/', (req, res) => {
   res.status(200).json({
     message: 'Pasban Payment Server',
-    status: 'Running',
+    status: 'Running on Railway',
     version: '1.0.0'
   });
 });
@@ -172,5 +173,8 @@ app.use('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Payment server running on port ${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV}`);
+  console.log(`Platform: Railway`);
   console.log(`Allowed origins: ${allowedOrigins.join(', ')}`);
 });
+
+

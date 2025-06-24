@@ -1,8 +1,8 @@
-# Pasban Payment Server - Render Deployment
+# Pasban Payment Server - Railway Deployment
 
-Express.js server for handling Razorpay payment processing securely, deployed on Render.
+Express.js server for handling Razorpay payment processing securely, deployed on Railway.
 
-## Render Deployment Steps
+## Railway Deployment Steps
 
 ### 1. Prepare Repository
 ```bash
@@ -13,19 +13,15 @@ git add .
 git commit -m "Initial commit for payment server"
 ```
 
-### 2. Deploy to Render
-1. Go to [Render Dashboard](https://dashboard.render.com/)
-2. Click "New +" → "Web Service"
+### 2. Deploy to Railway
+1. Go to [Railway Dashboard](https://railway.app/)
+2. Click "New Project" → "Deploy from GitHub repo"
 3. Connect your GitHub repository
-4. Configure the service:
-   - **Name**: `pasban-payment-server`
-   - **Environment**: `Node`
-   - **Build Command**: `npm install`
-   - **Start Command**: `npm start`
-   - **Plan**: Free (or paid for better performance)
+4. Select the repository containing your server code
+5. Railway will automatically detect it's a Node.js project
 
 ### 3. Environment Variables
-Add these environment variables in Render dashboard:
+Add these environment variables in Railway dashboard:
 ```
 NODE_ENV=production
 FRONTEND_URL=https://pasban.in
@@ -34,10 +30,14 @@ RAZORPAY_KEY_SECRET=your_razorpay_key_secret
 PORT=5000
 ```
 
-### 4. Update Frontend
-Update your frontend `.env` file:
+### 4. Custom Start Command (if needed)
+Railway should automatically detect your start command from package.json, but you can override it in the Railway dashboard:
+- Start Command: `npm start`
+
+### 5. Update Frontend
+Update your frontend environment variables:
 ```
-VITE_PAYMENT_SERVER_URL=https://your-render-app-name.onrender.com
+VITE_PAYMENT_SERVER_URL=https://your-railway-app-name.railway.app
 ```
 
 ## API Endpoints
@@ -90,13 +90,13 @@ Health check endpoint for monitoring.
 ## Monitoring
 
 - Health check endpoint: `/health`
-- Logs available in Render dashboard
-- Set up monitoring alerts in Render
+- Logs available in Railway dashboard
+- Set up monitoring alerts in Railway
 
 ## Troubleshooting
 
 1. **CORS Issues**: Ensure frontend domain is in allowedOrigins
-2. **Environment Variables**: Check all required vars are set in Render
+2. **Environment Variables**: Check all required vars are set in Railway
 3. **Razorpay Keys**: Verify keys are correct and active
 4. **Rate Limiting**: Check if requests are being rate limited
 
@@ -108,3 +108,19 @@ npm run dev
 ```
 
 Server runs on http://localhost:5000
+
+## Railway vs Render Differences
+
+### Advantages of Railway:
+- Faster cold starts
+- Better developer experience
+- More generous free tier
+- Automatic HTTPS
+- Built-in monitoring
+- Easier environment variable management
+
+### Migration Benefits:
+- Improved performance
+- Better uptime
+- More reliable deployments
+- Enhanced monitoring capabilities
