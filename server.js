@@ -10,25 +10,28 @@ app.set('trust proxy', 1); // ✅ REQUIRED for Railway
 app.use(cors());
 app.use(express.json());
 
-// ✅ Rate Limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
 });
 app.use(limiter);
 
-// ✅ Razorpay instance
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
-// Health check route (add this before app.listen)
+
+// ✅ Health check
 app.get('/health', (req, res) => {
   res.status(200).send('OK');
 });
 
+// ✅ Root route
+app.get('/', (req, res) => {
+  res.send('Pasban Payment Server is Running 🚀');
+});
 
-// ✅ Routes
+// ✅ Razorpay order creation
 app.post('/api/create-order', async (req, res) => {
   try {
     const { amount } = req.body;
